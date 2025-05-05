@@ -32,11 +32,8 @@ public class Carrello {
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
 
-        Smartphone smart1 = new Smartphone("g7", "lg", new BigDecimal(200.5), 0, 123, 512);
-        Televisore tv1 = new Televisore("beltv", "lg", new BigDecimal(400.5), 0, 40, false);
-        Prodotto cuffia1 = new Cuffie("bellacuffia", "lg", new BigDecimal(40.5), 0, "rosso", false);
+        Scanner sc = new Scanner(System.in);
 
         Carrello cart = new Carrello();
 
@@ -46,8 +43,8 @@ public class Carrello {
 
             System.out.println("Cosa vuoi fare?");
             System.out.println("1 - Aggiungi Smartphone");
-            System.out.println("2 - Aggiungi Televisore (non ancora implementato)");
-            System.out.println("3 - Aggiungi Cuffie (non ancora implementato)");
+            System.out.println("2 - Aggiungi Televisore");
+            System.out.println("3 - Aggiungi Cuffie");
             System.out.println("4 - Visualizza Carrello");
             System.out.println("5 - Esci");
             System.out.print("Inserisci la tua scelta: ");
@@ -73,10 +70,40 @@ public class Carrello {
 
                     break;
                 case "2":
-                    System.out.println("Funzionalità per l'aggiunta di televisori non ancora implementata.");
+                    System.out.println("inserisci il nome del televisore");
+                    String nameTv = sc.nextLine();
+                    System.out.println("inserisci il brand televisore");
+                    String brandTv = sc.nextLine();
+                    System.out.println("inserisci il prezzo della tv");
+                    BigDecimal priceTv = new BigDecimal(sc.nextLine());
+                    System.out.println("inserisci l'iva prodotto");
+                    float ivaTv = sc.nextFloat();
+                    sc.nextLine();
+                    System.out.println("inserisci grandezza prodotto");
+                    int sizesTv = sc.nextInt();
+                    sc.nextLine();
+                    System.out.println("la tv è smart? (si o no)");
+                    String isSmartTvInput = sc.nextLine();
+                    boolean isSmartTv = isSmartTvInput.equalsIgnoreCase("si");
+                    cart.addToCart(new Televisore(nameTv, brandTv, priceTv, ivaTv / 100, sizesTv, isSmartTv));
+
                     break;
                 case "3":
-                    System.out.println("Funzionalità per l'aggiunta di cuffie non ancora implementata.");
+                    System.out.println("inserisci il nome delle cuffie");
+                    String nameHp = sc.nextLine();
+                    System.out.println("inserisci il brand delle cuffie");
+                    String brandHp = sc.nextLine();
+                    System.out.println("inserisci il prezzo dellle cuffie");
+                    BigDecimal priceHp = new BigDecimal(sc.nextLine());
+                    System.out.println("inserisci l'iva prodotto");
+                    float ivaHp = sc.nextFloat();
+                    sc.nextLine();
+                    System.out.println("inserisci colore delle cuffie");
+                    String colorHp = sc.nextLine();
+                    System.out.println("le cuffie sono cablate? (si o no)");
+                    String isWiredHpInput = sc.nextLine();
+                    boolean isWiredHp = isWiredHpInput.equalsIgnoreCase("si");
+                    cart.addToCart(new Cuffie(nameHp, brandHp, priceHp, ivaHp / 100, colorHp, isWiredHp));
                     break;
                 case "4":
                     cart.showCart();
@@ -89,6 +116,6 @@ public class Carrello {
                     System.out.println("Scelta non valida.");
             }
         }
-
+        sc.close();
     }
 }

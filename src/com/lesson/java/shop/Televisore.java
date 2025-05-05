@@ -13,14 +13,6 @@ public class Televisore extends Prodotto{
         this.isSmart=isSmart;
     }
 
-    public String isSmaString() {
-        if (isSmart) {
-            return "è una smart tv";
-        } else {
-            return "non è una smart tv";
-        }
-    }
-
     public float getSizes() {
         return this.sizes;
     }
@@ -37,13 +29,19 @@ public class Televisore extends Prodotto{
         this.isSmart =isSmart;
     }
  
-
+    public String isSmartString() {
+        if (isSmart) {
+            return "è una smart tv";
+        } else {
+            return "non è una smart tv";
+        }
+    }
 
 
     @Override
     public String toString() {
         
-        return super.toString() + String.format("la dimensione della tv è: %.2f, %s", this.sizes, this.isSmaString());
+        return super.toString() + String.format("la dimensione della tv è: %.2f, %s", this.sizes, this.isSmartString());
     }
     
 
