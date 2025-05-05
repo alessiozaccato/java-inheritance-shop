@@ -1,6 +1,7 @@
 package com.lesson.java.shop;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Scanner;
 
 public class Carrello {
@@ -31,6 +32,38 @@ public class Carrello {
         }
     }
 
+    public String discountedPrice(Prodotto prodotto, boolean hasFidelityCard) {
+
+        BigDecimal discountedPriceWithIva = prodotto.salePrice(hasFidelityCard)
+                .multiply(BigDecimal.ONE.add(new BigDecimal(prodotto.getIva())))
+                .setScale(2, RoundingMode.HALF_UP);
+
+        String formattedDiscountedPrice = discountedPriceWithIva.toPlainString();
+        String description = prodotto.toString();
+        return description += String.format(" | Prezzo con IVA (base): %s ", formattedDiscountedPrice);
+
+    }
+
+    public void getCartProducts(boolean hasFidelityCard) {
+
+        BigDecimal somma = new BigDecimal(0);
+
+        BigDecimal sommaNoDiscounted = new BigDecimal(0);
+
+        for (Prodotto prodotto : cart) {
+
+            sommaNoDiscounted = sommaNoDiscounted.add(prodotto.getPrice());
+
+            somma = somma.add(prodotto.salePrice(hasFidelityCard));
+
+            System.out.println(this.discountedPrice(prodotto, hasFidelityCard));
+
+        }
+
+        System.out.println("totale carrello scontato: " + sommaNoDiscounted + " somma carrello con prezzo base: " + somma.setScale(2,RoundingMode.HALF_UP));
+
+    }
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -38,6 +71,15 @@ public class Carrello {
         Carrello cart = new Carrello();
 
         boolean isStart = true;
+
+        System.out.println("hai la tessera fedelta' (si o no)");
+        String fideltyStringInput = sc.nextLine();
+        boolean isFidelityCard = false;
+        if (fideltyStringInput.equals("si")) {
+            isFidelityCard = true;
+        } else if (fideltyStringInput.equals("no")) {
+            isFidelityCard = false;
+        }
 
         while (isStart) {
 
@@ -84,12 +126,12 @@ public class Carrello {
                     sc.nextLine();
                     System.out.println("la tv è smart? (si o no)");
                     String isSmartTvInput = sc.nextLine();
-                    boolean isSmartTv=false;
+                    boolean isSmartTv = false;
                     if (isSmartTvInput.equals("si")) {
-                        isSmartTv=true;
+                        isSmartTv = true;
                     } else if (isSmartTvInput.equals("no")) {
-                        isSmartTv=false;
-                    } 
+                        isSmartTv = false;
+                    }
 
                     // boolean isSmartTv = isSmartTvInput.equalsIgnoreCase("si");
                     cart.addToCart(new Televisore(nameTv, brandTv, priceTv, ivaTv / 100, sizesTv, isSmartTv));
@@ -109,18 +151,18 @@ public class Carrello {
                     String colorHp = sc.nextLine();
                     System.out.println("le cuffie sono cablate? (si o no)");
                     String isWiredHpInput = sc.nextLine();
-                    boolean isWiredHp=false;
+                    boolean isWiredHp = false;
                     if (isWiredHpInput.equals("si")) {
-                        isWiredHp=true;
+                        isWiredHp = true;
                     } else if (isWiredHpInput.equals("no")) {
-                        isWiredHp=false;
-                    } 
-                    //alternate method with equalsIgnoreCase
+                        isWiredHp = false;
+                    }
+                    // alternate method with equalsIgnoreCase
                     // boolean isWiredHp = isWiredHpInput.equalsIgnoreCase("si");
                     cart.addToCart(new Cuffie(nameHp, brandHp, priceHp, ivaHp / 100, colorHp, isWiredHp));
                     break;
                 case "4":
-                    cart.showCart();
+                    cart.getCartProducts(isFidelityCard);
                     break;
                 case "5":
                     isStart = false;

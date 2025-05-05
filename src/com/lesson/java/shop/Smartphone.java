@@ -36,4 +36,12 @@ public class Smartphone extends Prodotto {
         return super.toString() + String.format(", imeiCode : %d, memoria: %d", imeiCode, memory);
     }
 
+    @Override
+    public BigDecimal salePrice(boolean fideltyCard) {
+        if (fideltyCard && this.memory<=32) {
+            return this.getPrice().multiply(new BigDecimal(0.95));
+        }
+        return super.salePrice(fideltyCard);
+    }
+
 }

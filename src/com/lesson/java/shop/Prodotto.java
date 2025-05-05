@@ -12,6 +12,7 @@ public class Prodotto {
     private String brand;
     private BigDecimal price;
     private float iva;
+    
 
     public Prodotto(String name, String brand, BigDecimal price, float iva) {
 
@@ -23,6 +24,7 @@ public class Prodotto {
         if (this.iva <= 0.22) {
             this.iva = 0.22f;
         }
+
     }
 
     // read only attribute
@@ -64,6 +66,15 @@ public class Prodotto {
 
     public void setIva(float iva) {
         this.iva = iva;
+    }
+
+    
+
+    public BigDecimal salePrice (boolean fideltyCard) {
+        if(fideltyCard) {
+            return this.price.multiply(new BigDecimal(0.98));
+        } 
+        return this.price;
     }
 
     @Override

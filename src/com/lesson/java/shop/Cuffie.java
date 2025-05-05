@@ -44,4 +44,12 @@ public class Cuffie extends Prodotto {
         
         return super.toString() + String.format(", color: %s, %s", this.color, this.isWiredString());
     }
+
+    @Override
+    public BigDecimal salePrice(boolean fideltyCard) {
+        if (fideltyCard && this.isWired==true) {
+            return this.getPrice().multiply(new BigDecimal(0.93));
+        }
+        return super.salePrice(fideltyCard);
+    }
 }

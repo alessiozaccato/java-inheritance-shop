@@ -43,6 +43,14 @@ public class Televisore extends Prodotto{
         
         return super.toString() + String.format("la dimensione della tv è: %.2f, %s", this.sizes, this.isSmartString());
     }
+
+    @Override
+    public BigDecimal salePrice(boolean fideltyCard) {
+        if (fideltyCard && this.isSmart==false) {
+            return this.getPrice().multiply(new BigDecimal(0.90));
+        }
+        return super.salePrice(fideltyCard);
+    }
     
 
 
