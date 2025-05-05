@@ -84,7 +84,14 @@ public class Carrello {
                     sc.nextLine();
                     System.out.println("la tv è smart? (si o no)");
                     String isSmartTvInput = sc.nextLine();
-                    boolean isSmartTv = isSmartTvInput.equalsIgnoreCase("si");
+                    boolean isSmartTv=false;
+                    if (isSmartTvInput.equals("si")) {
+                        isSmartTv=true;
+                    } else if (isSmartTvInput.equals("no")) {
+                        isSmartTv=false;
+                    } 
+
+                    // boolean isSmartTv = isSmartTvInput.equalsIgnoreCase("si");
                     cart.addToCart(new Televisore(nameTv, brandTv, priceTv, ivaTv / 100, sizesTv, isSmartTv));
 
                     break;
@@ -102,7 +109,14 @@ public class Carrello {
                     String colorHp = sc.nextLine();
                     System.out.println("le cuffie sono cablate? (si o no)");
                     String isWiredHpInput = sc.nextLine();
-                    boolean isWiredHp = isWiredHpInput.equalsIgnoreCase("si");
+                    boolean isWiredHp=false;
+                    if (isWiredHpInput.equals("si")) {
+                        isWiredHp=true;
+                    } else if (isWiredHpInput.equals("no")) {
+                        isWiredHp=false;
+                    } 
+                    //alternate method with equalsIgnoreCase
+                    // boolean isWiredHp = isWiredHpInput.equalsIgnoreCase("si");
                     cart.addToCart(new Cuffie(nameHp, brandHp, priceHp, ivaHp / 100, colorHp, isWiredHp));
                     break;
                 case "4":
